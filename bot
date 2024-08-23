@@ -1,0 +1,72 @@
+#Ten projekt polega na stworzeniu bota, który automatycznie wysyła wiadomości do wybranej grupy osób na liście kontaktów w aplikacji komunikatora, takiej jak Google Talk, Skype, Yahoo Messenger, AIM itp. Chociaż te aplikacje używają zastrzeżonych protokołów, które utrudniają interakcję poprzez bezpośrednie moduły Python, możemy to obejść, używając narzędzi do automatyzacji GUI, takich jak PyAutoGUI.
+
+#Kroki:
+#Otwieranie okna czatu: Bot będzie wpisywał nazwę użytkownika w pasku wyszukiwania aplikacji komunikatora, a następnie otworzy okno wiadomości.
+#Wysyłanie wiadomości: Bot będzie wpisywał wiadomość w oknie czatu i wysyłał ją do wybranej osoby.
+#Obsługa wyjątkowych sytuacji: Bot musi obsługiwać przypadki, takie jak:
+#Użytkownik jest offline.
+#Okno czatu pojawia się w różnych miejscach na ekranie.
+#Pojawiają się okna dialogowe, które mogą zakłócić wysyłanie wiadomości.
+#Detekcja problemów: Bot będzie wykonywał zrzuty ekranu, aby sprawdzić, czy klawisze wirtualne są prawidłowo wysyłane i czy okno czatu jest aktywne.
+
+
+import pyautogui
+import time
+import pyperclip
+
+def send_message(contact_name, message):
+    # Skoncentruj się na aplikacji komunikatora (należy już mieć otwartą aplikację)
+    pyautogui.hotkey('alt', 'tab')  # Zakłada, że komunikator jest otwarty w aktywnym oknie
+
+    # Kliknij pasek wyszukiwania
+    pyautogui.click(x=200, y=100)  # Ustaw współrzędne x, y zgodnie z lokalizacją paska wyszukiwania
+
+    # Wprowadź nazwę kontaktu
+    pyperclip.copy(contact_name)
+    pyautogui.hotkey('ctrl', 'v')
+    pyautogui.press('enter')
+    
+    time.sleep(2)  # Czekaj na otwarcie okna wiadomości
+    
+    # Wprowadź wiadomość
+    pyperclip.copy(message)
+    pyautogui.hotkey('ctrl', 'v')
+    
+    # Wyślij wiadomość
+    pyautogui.press('enter')
+
+    # Dodaj opóźnienie, aby upewnić się, że wiadomość została wysłana
+    time.sleep(1)
+
+def send_notifications(contact_list, message):
+    for contact in contact_list:
+        send_message(contact, message)
+        time.sleep(3)  # Czekaj chwilę przed wysłaniem wiadomości do następnego kontaktu
+
+if __name__ == "__main__":
+    contacts = ['Jan Kowalski', 'Anna Nowak', 'Piotr Zięba']
+    notification_message = 'Cześć! To jest automatyczna wiadomość powiadomienia.'
+
+    send_notifications(contacts, notification_message)
+#Wyjaśnienie:
+#Importowanie bibliotek:
+
+#pyautogui: Narzędzie do automatyzacji GUI.
+#time: Umożliwia wprowadzenie opóźnień w skrypcie.
+#pyperclip: Służy do kopiowania tekstu do schowka i wklejania go (przydatne przy wprowadzaniu tekstu do aplikacji GUI).
+#Funkcja send_message(contact_name, message):
+
+#Przełącza fokus na aplikację komunikatora.
+#Kliknięcie na pasku wyszukiwania (współrzędne mogą się różnić w zależności od aplikacji).
+#Wprowadzenie nazwy kontaktu, naciśnięcie Enter, aby otworzyć okno czatu.
+#Wprowadzenie wiadomości i wysłanie jej.
+#Funkcja send_notifications(contact_list, message):
+
+#Przechodzi przez listę kontaktów, wysyłając wiadomość do każdej osoby.
+#Ustawienia współrzędnych:
+
+#pyautogui.click(x=200, y=100) - współrzędne te muszą być dostosowane do Twojej aplikacji komunikatora.
+#Uwagi:
+#Dostosowanie współrzędnych: Upewnij się, że współrzędne są dostosowane do Twojej aplikacji, ponieważ interfejsy GUI różnią się w zależności od programu i ustawienia ekranu.
+#Opóźnienia: Dodane opóźnienia (time.sleep) pomagają w synchronizacji bota z otwieraniem okien i wprowadzaniem danych.
+#Obsługa wyjątków: Można rozbudować skrypt, aby obsługiwał wyjątki, takie jak brak połączenia internetowego lub brak reakcji okna czatu.
