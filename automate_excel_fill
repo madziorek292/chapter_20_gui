@@ -1,0 +1,74 @@
+import pyautogui
+import time
+
+# Lista danych do wpisania do formularza
+formData = [
+    {'name': 'Alice', 'fear': 'eavesdroppers', 'source': 'wand', 'robocop': 4, 'comments': 'Tell Bob I said hi.'},
+    {'name': 'Bob', 'fear': 'bees', 'source': 'amulet', 'robocop': 4, 'comments': 'n/a'},
+    {'name': 'Carol', 'fear': 'puppets', 'source': 'crystal ball', 'robocop': 1, 'comments': 'Please take the puppets out of the break room.'},
+    {'name': 'Alex Murphy', 'fear': 'ED-209', 'source': 'money', 'robocop': 5, 'comments': 'Protect the innocent. Serve the public trust. Uphold the law.'},
+]
+
+# Ustawienie opóźnienia między akcjami
+pyautogui.PAUSE = 0.5
+
+# Informacja dla użytkownika
+print('Upewnij się, że okno przeglądarki jest aktywne i formularz jest załadowany!')
+
+for person in formData:
+    # Przerwa na anulowanie skryptu
+    print('>>> 5-SECOND PAUSE TO LET USER PRESS CTRL-C <<<')
+    time.sleep(5)
+
+    print(f'Wpisywanie informacji dla {person["name"]}...')
+
+    # Kliknięcie pierwszego pola i wpisanie danych
+    pyautogui.write(['\t', '\t'])  # Przejście do pola 'Name'
+    pyautogui.write(person['name'] + '\t')
+    pyautogui.write(person['fear'] + '\t')
+
+    # Wybór źródła mocy czarodzieja
+    if person['source'] == 'wand':
+        pyautogui.write(['down', '\t'], 0.5)
+    elif person['source'] == 'amulet':
+        pyautogui.write(['down', 'down', '\t'], 0.5)
+    elif person['source'] == 'crystal ball':
+        pyautogui.write(['down', 'down', 'down', '\t'], 0.5)
+    elif person['source'] == 'money':
+        pyautogui.write(['down', 'down', 'down', 'down', '\t'], 0.5)
+
+    # Wybór odpowiedzi na pytanie RoboCop
+    if person['robocop'] == 1:
+        pyautogui.write([' ', '\t'], 0.5)
+    elif person['robocop'] == 2:
+        pyautogui.write(['right', '\t'], 0.5)
+    elif person['robocop'] == 3:
+        pyautogui.write(['right', 'right', '\t'], 0.5)
+    elif person['robocop'] == 4:
+        pyautogui.write(['right', 'right', 'right', '\t'], 0.5)
+    elif person['robocop'] == 5:
+        pyautogui.write(['right', 'right', 'right', 'right', '\t'], 0.5)
+
+    # Wpisanie dodatkowych komentarzy
+    pyautogui.write(person['comments'] + '\t')
+
+    # Kliknięcie przycisku "Submit"
+    time.sleep(0.5)  # Czekanie na aktywację przycisku
+    pyautogui.press('enter')
+
+    # Przerwa po wysłaniu formularza
+    print('Formularz wysłany.')
+    time.sleep(5)
+
+    # Kliknięcie na link "Submit another response"
+    pyautogui.click(100, 200)  # Należy wcześniej ustalić te współrzędne za pomocą pyautogui.mouseInfo()
+
+print('Wszystkie formularze zostały wypełnione!')
+
+
+#Wyjaśnienie kodu:
+#Biblioteki: Program korzysta z biblioteki pyautogui, która umożliwia automatyzację ruchów myszy i klawiatury.
+#Dane: formData to lista słowników, gdzie każdy słownik zawiera dane jednej osoby.
+#Iteracja: Program przechodzi przez listę formData, wypełniając formularz dla każdej osoby.
+#Ruchy i kliknięcia: Funkcje pyautogui.write() i pyautogui.press() są używane do wprowadzania tekstu i nawigacji po formularzu za pomocą klawiszy Tab, Strzałek, i Enter.
+#Opóźnienia: Użycie time.sleep() dodaje opóźnienia, aby dać czas na załadowanie formularza lub zatrzymanie skryptu.
