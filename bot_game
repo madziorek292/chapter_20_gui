@@ -1,0 +1,70 @@
+#en projekt polega na stworzeniu bota, który automatycznie gra w grę online o nazwie Sushi Go Round. Gra polega na klikaniu odpowiednich przycisków składników, aby przygotować zamówienia sushi dla klientów. Im szybciej i dokładniej wypełnisz zamówienia, tym więcej punktów zdobędziesz. Ten projekt jest idealny do automatyzacji GUI z wykorzystaniem Pythona.
+
+#Kroki:
+#Zrzuty ekranu składników: Bot użyje rozpoznawania obrazów, aby identyfikować składniki na ekranie.
+#Wykrywanie zamówień: Bot będzie analizował zamówienia klientów i klikał odpowiednie składniki, aby je przygotować.
+#Przygotowywanie sushi: Bot będzie sekwencyjnie klikał przyciski składników w odpowiedniej kolejności.
+#Automatyzacja gry: Bot będzie automatycznie powtarzał kroki, aby przygotowywać kolejne zamówienia, dążąc do zdobycia jak najwyższego wyniku.
+#Kod w Pythonie:
+#python
+Skopiuj kod
+import pyautogui
+import time
+
+# Czas na ustawienie gry i ekranów
+time.sleep(3)
+
+# Funkcja do lokalizowania i klikania składników
+def click_ingredient(image, confidence=0.8):
+    location = pyautogui.locateCenterOnScreen(image, confidence=confidence)
+    if location:
+        pyautogui.click(location)
+        return True
+    return False
+
+# Funkcja do przygotowywania sushi na podstawie zamówienia
+def prepare_sushi(order):
+    if 'california_roll' in order:
+        click_ingredient('rice.png')
+        click_ingredient('nori.png')
+        click_ingredient('crab.png')
+    elif 'salmon_roll' in order:
+        click_ingredient('rice.png')
+        click_ingredient('nori.png')
+        click_ingredient('salmon.png')
+    elif 'ebi_nigiri' in order:
+        click_ingredient('rice.png')
+        click_ingredient('shrimp.png')
+    # Dodaj więcej przepisów w zależności od gry
+
+# Główna pętla bota do przygotowywania zamówień
+def game_bot():
+    while True:
+        # Zdefiniuj różne typy zamówień
+        orders = ['california_roll', 'salmon_roll', 'ebi_nigiri']
+        for order in orders:
+            if click_ingredient(order + '_order.png'):  # Znajdź zamówienie na ekranie
+                prepare_sushi(order)
+                pyautogui.click('serve_button.png')  # Kliknij przycisk podania sushi
+        time.sleep(1)  # Czekaj, aby dać czas na pojawienie się nowych zamówień
+
+# Uruchomienie bota
+if __name__ == "__main__":
+    game_bot()
+#Wyjaśnienie:
+#Zrzuty ekranu składników:
+
+#Bot używa funkcji pyautogui.locateCenterOnScreen(image) do znajdowania obrazów składników na ekranie. Wymaga to wcześniejszego przygotowania zrzutów ekranu dla każdego składnika (np. rice.png, nori.png, crab.png).
+#Rozpoznawanie zamówień:
+
+#Bot analizuje ekran gry i wyszukuje zamówienia (np. california_roll_order.png). Jeśli znajdzie zamówienie, zaczyna przygotowywać odpowiednie sushi.
+#Przygotowywanie sushi:
+
+#Dla każdego zamówienia bot klika odpowiednie składniki w odpowiedniej kolejności, symulując przygotowanie sushi.
+#Automatyzacja:
+
+#Główna pętla game_bot() uruchamia bota, który stale wyszukuje nowe zamówienia i je realizuje.
+#Uwagi:
+#Zrzuty ekranu: Wszystkie obrazy (rice.png, nori.png, crab.png, california_roll_order.png itd.) muszą być zapisane w tym samym katalogu co skrypt i muszą być dokładnymi kopiami obrazów w grze.
+#Dokładność wykrywania obrazów: Wartość confidence=0.8 w pyautogui.locateCenterOnScreen może być dostosowana w zależności od potrzeb (im niższa wartość, tym mniej dokładne dopasowanie).
+#Opóźnienia: time.sleep() pomaga w synchronizacji bota z grą, co jest istotne, aby bot działał poprawnie.
