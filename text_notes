@@ -1,0 +1,49 @@
+import pyautogui
+import pyperclip
+import time
+
+# Czas na przełączenie się do Notatnika lub innej aplikacji, której używasz
+time.sleep(2)
+
+# Pobierz okno aplikacji z tytułem "Notatnik"
+notepad_window = pyautogui.getWindowsWithTitle('Notatnik')[0]
+
+# Aktywuj okno, aby pojawiło się na pierwszym planie
+notepad_window.activate()
+
+# Kliknij w obszarze, gdzie znajduje się główne pole tekstowe
+pyautogui.click(notepad_window.left + 100, notepad_window.top + 200)
+
+# Zaznacz cały tekst (ctrl + a) i skopiuj go do schowka (ctrl + c)
+pyautogui.hotkey('ctrl', 'a')
+pyautogui.hotkey('ctrl', 'c')
+
+# Odczytaj tekst ze schowka
+text = pyperclip.paste()
+
+# Wyświetl tekst w konsoli
+print("Zawartość pola tekstowego:")
+print(text)
+
+
+#Ten projekt pokazuje, jak za pomocą PyAutoGUI i Pyperclip można automatycznie odczytać tekst z pola tekstowego w aplikacji, takiej jak Notatnik, i skopiować go do schowka, a następnie odczytać ten tekst w Pythonie.
+
+#Kroki:
+#Znajdź okno aplikacji: Użyj pyautogui.getWindowsWithTitle('Notepad'), aby uzyskać obiekt okna Notatnika.
+#Ustaw okno na pierwszym planie: Skorzystaj z metody activate(), aby okno Notatnika pojawiło się na pierwszym planie.
+#Kliknij w pole tekstowe: Oblicz odpowiednie współrzędne kliknięcia, dodając np. 100 lub 200 pikseli do wartości top i left atrybutów okna.
+#Zaznacz cały tekst i skopiuj go do schowka: Wykonaj skróty klawiaturowe ctrl + a i ctrl + c, aby zaznaczyć cały tekst i skopiować go do schowka.
+#Odczytaj tekst ze schowka: Użyj pyperclip.paste(), aby odczytać zawartość schowka.
+#Wyświetl tekst: Na koniec wyświetl odczytany tekst w konsoli.
+
+
+#Wyjaśnienie:
+#Znajdowanie okna: pyautogui.getWindowsWithTitle('Notatnik')[0] znajduje okno aplikacji o tytule "Notatnik" i zwraca obiekt Window.
+
+#Aktywacja okna: Metoda activate() ustawia okno na pierwszym planie, aby mogło odbierać kliknięcia i inne zdarzenia.
+
+#Kliknięcie w pole tekstowe: Dodając 100 lub 200 pikseli do współrzędnych left i top, klikamy w miejsce, gdzie zazwyczaj znajduje się pole tekstowe w Notatniku.
+
+#Kopiowanie tekstu: Używamy pyautogui.hotkey('ctrl', 'a'), aby zaznaczyć cały tekst, a następnie pyautogui.hotkey('ctrl', 'c'), aby skopiować go do schowka.
+
+#Odczytanie tekstu: pyperclip.paste() pobiera zawartość schowka, którą następnie można przetworzyć w Pythonie.
