@@ -1,0 +1,39 @@
+Jak możesz wywołać funkcję awaryjnego zatrzymania programu PyAutoGUI?
+
+Możesz wywołać funkcję awaryjnego zatrzymania PyAutoGUI, przesuwając kursor myszy w lewy górny róg ekranu. Wtedy wywołany zostanie wyjątek pyautogui.FailSafeException, który zatrzyma program.
+Która funkcja zwraca aktualną rozdzielczość ekranu?
+
+Funkcja pyautogui.size() zwraca aktualną rozdzielczość ekranu jako obiekt typu Size z atrybutami width (szerokość) i height (wysokość).
+Która funkcja zwraca współrzędne aktualnej pozycji kursora myszy?
+
+Funkcja pyautogui.position() zwraca współrzędne (x, y) aktualnej pozycji kursora myszy.
+Jaka jest różnica między pyautogui.moveTo() a pyautogui.move()?
+
+pyautogui.moveTo(x, y) przesuwa kursor myszy do określonych współrzędnych (x, y) na ekranie, natomiast pyautogui.move(xOffset, yOffset) przesuwa kursor o określoną liczbę pikseli od jego aktualnej pozycji.
+Które funkcje mogą być używane do przeciągania myszy?
+
+Do przeciągania myszy można używać funkcji pyautogui.dragTo() (przeciąganie do określonej pozycji) oraz pyautogui.drag() (przeciąganie o określony offset od aktualnej pozycji).
+Jakie wywołanie funkcji spowoduje napisanie znaków "Hello, world!"?
+
+pyautogui.write("Hello, world!") spowoduje napisanie znaków "Hello, world!".
+Jak możesz wprowadzić naciśnięcia specjalnych klawiszy, takich jak lewy klawisz strzałki?
+
+Możesz użyć funkcji pyautogui.press('left'), aby zasymulować naciśnięcie lewego klawisza strzałki.
+Jak możesz zapisać bieżącą zawartość ekranu do pliku obrazowego o nazwie screenshot.png?
+
+Możesz użyć funkcji pyautogui.screenshot('screenshot.png'), aby zapisać bieżący zrzut ekranu do pliku screenshot.png.
+Jaki kod ustawi dwusekundową przerwę po każdym wywołaniu funkcji PyAutoGUI?
+
+pyautogui.PAUSE = 2 ustawi dwusekundową przerwę po każdym wywołaniu funkcji PyAutoGUI.
+Jeśli chcesz zautomatyzować kliknięcia i naciśnięcia klawiszy w przeglądarce internetowej, powinieneś używać PyAutoGUI czy Selenium?
+
+Selenium jest lepszym wyborem do automatyzacji działań w przeglądarkach internetowych, ponieważ zapewnia bardziej niezawodną i bezpieczną interakcję z elementami strony internetowej.
+Co sprawia, że PyAutoGUI jest podatne na błędy?
+
+PyAutoGUI jest podatne na błędy, ponieważ działa "ślepo", nie rozpoznaje dokładnie, co klika lub co pisze, więc jest bardziej narażone na błędy, jeśli interfejs użytkownika zmienia się lub jeśli wystąpią opóźnienia w ładowaniu stron.
+Jak możesz znaleźć rozmiar każdego okna na ekranie, które zawiera tekst "Notatnik" w tytule?
+
+Możesz użyć funkcji pygetwindow.getWindowsWithTitle('Notatnik') z modułu pygetwindow, aby znaleźć wszystkie okna z "Notatnik" w tytule, a następnie window.size dla każdego okna, aby uzyskać jego rozmiar.
+Jak możesz ustawić przeglądarkę Firefox jako aktywną i umieścić ją przed wszystkimi innymi oknami na ekranie?
+
+Możesz użyć funkcji pygetwindow.getWindowsWithTitle('Firefox') z modułu pygetwindow, aby znaleźć okno przeglądarki Firefox, a następnie wywołać metodę window.activate() na tym obiekcie okna.
