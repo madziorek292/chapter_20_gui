@@ -1,0 +1,14 @@
+import pyautogui
+import time
+
+def nudge_mouse():
+    # Funkcja do delikatnego przesunięcia kursora
+    pyautogui.move(1, 0)  # Przesunięcie kursora o 1 piksel w prawo
+    pyautogui.move(-1, 0)  # Przesunięcie kursora o 1 piksel w lewo, aby wrócił do pierwotnej pozycji
+
+try:
+    while True:
+        nudge_mouse()  # Wykonaj ruch myszą
+        time.sleep(10)  # Poczekaj 10 sekund przed kolejnym ruchem
+except KeyboardInterrupt:
+    print("Program zakończony przez użytkownika.")
